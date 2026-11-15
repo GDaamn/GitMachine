@@ -1,0 +1,24 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Git Machine · Repository history</title><link rel="stylesheet" href="/style.css">
+<main>
+<div class="tools">
+  <b class="brand">Git<br>Machine</b>
+  <form id="form" role="search">
+    <input id="repo" aria-label="GitHub repository" required placeholder="Paste a GitHub URL to explore its history" autocomplete="off">
+    <button class="submit" aria-label="Open repository" title="Open repository">→</button>
+  </form>
+  <button id="theme" aria-label="Light mode" aria-pressed="false" title="Switch to light mode">☀</button>
+</div>
+<p id="status" role="status"></p><section id="workspace" hidden>
+<section class="timeline"><div class="snapshot"><div class="heading"><h1 id="name"></h1><span id="branch"></span><small id="activity-summary"></small></div>
+  <div class="commit"><h2 id="subject"></h2><span id="meta"><a id="commit-link" target="_blank" rel="noopener noreferrer" title="Open commit on GitHub in a new tab"></a><span id="commit-details"></span></span></div></div>
+  <div class="transport">
+    <button id="first" title="First commit on this timeline" aria-label="First commit">⇤</button>
+    <button id="prev" aria-label="Previous commit">←</button>
+    <div class="scrubber"><input type="range" min="0" id="slider" aria-label="Commit timeline"><canvas id="years" aria-label="Annual commit activity"></canvas></div>
+    <button id="next" aria-label="Next commit">→</button>
+    <button id="last" title="Latest commit" aria-label="Latest commit">⇥</button>
+  </div>
+</section>
+<div class="panels"><aside><div class="tabs"><button id="files">Files</button><button id="changes">Changes</button></div><div id="tree"></div></aside><article><div class="filebar"><strong id="filename"></strong><div class="tabs"><button id="code">Code</button><button id="diff">Diff</button><button id="network">Network</button></div></div><pre id="content"></pre><section id="map" hidden>
+<div class="map-tools"><button id="play">▶ Play</button><select id="pace" aria-label="Playback speed"><option value="slow">Slow</option><option value="overview" selected>Fast</option></select><span id="counts"></span></div>
+<div id="drawing"></div></section></article></div></section></main><script src="/highlight.min.js"></script><script src="/network.js"></script><script src="/app.js"></script></html>
