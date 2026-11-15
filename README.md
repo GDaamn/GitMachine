@@ -2,19 +2,13 @@
 
 Explore a public GitHub repository’s first-parent history, browse snapshots, and play the network time-lapse. Git Machine requires Python 3.10+ and Git with HTTPS support.
 
-## Deploy from GitHub to an existing Render web service
+## Deploy to Render with Docker
 
-Commit this folder’s contents to the branch linked to the service. In Settings, use the following values.
+Commit this folder’s contents to GitHub, then create a Render Web Service from the repository and select **Docker** as the runtime. Render will build the root `Dockerfile`; it installs Git and the Python dependencies and starts Gunicorn with the correct `viewer:application` entry point. Leave the Start Command empty so Render uses the command in the Dockerfile.
 
-| Setting | Value |
-| --- | --- |
-| Runtime | Python 3 |
-| Root Directory | Leave empty if viewer.py is at the repository root. Otherwise enter its directory relative to the repository root. |
-| Build Command | `git --version && python -m pip install -r requirements.txt` |
-| Start Command | `sh start-render.sh` |
-| Health Check Path | `/healthz` |
+Set the Health Check Path to `/healthz`. Render supplies `PORT`. If you are updating an existing service and its Start Command is set to `gunicorn app:app`, clear that override; this project’s WSGI application is `viewer:application`. If Render does not let you change the existing service to Docker, create a new Web Service with the Docker runtime.
 
-Deploy the latest commit and open the service URL. The health endpoint returns “ok” independently of GitHub. Open a public repository to test cloning and lazy file loading. Render supplies PORT. Public repositories require no GitHub token.
+Deploy the latest commit and open the service URL. The health endpoint returns “ok” independently of GitHub. Open a public repository to test cloning and lazy file loading. Public repositories require no GitHub token.
 
 Clones are cached under ~/.cache/history-viewer. On ephemeral storage they can be rebuilt after a restart or deploy. To reuse an existing persistent disk, set HISTORY_CACHE to a writable directory under its mount point. Cache usage grows with the repositories opened.
 
