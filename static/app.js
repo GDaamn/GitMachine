@@ -194,7 +194,10 @@ el("slider").onkeydown = e => {
 };
 function preview(i) {
   const [sha, date, author, subject] = commits[i];
-  el("subject").textContent = subject || "(No commit message)";
+  const message = subject || "(No commit message)";
+  const subjectElement = el("subject");
+  subjectElement.textContent = message.length > 80 ? message.slice(0, 77).trimEnd() + "…" : message;
+  subjectElement.title = message.length > 80 ? message : "";
   const link = el("commit-link");
   link.href = "https://github.com/" + repo + "/commit/" + sha;
   link.textContent = sha.slice(0, 8);
